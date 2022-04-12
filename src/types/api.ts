@@ -1,4 +1,10 @@
 namespace ApiTypes {
+
+  export namespace Params {
+    export interface GetSingleUser {
+      userId: string;
+    }
+  }
   export namespace Request {
     export interface CreateLocalUser {
       email: string;
@@ -11,6 +17,12 @@ namespace ApiTypes {
     export interface CreateLocalUser {
       id: string;
       email: string;
+      firstName: string;
+      createdOn: string;
+    }
+
+    export interface GetSingleUser {
+      id: string;
       firstName: string;
       createdOn: string;
     }

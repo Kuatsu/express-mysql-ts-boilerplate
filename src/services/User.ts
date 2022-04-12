@@ -27,4 +27,11 @@ export default class UserService {
     });
     return { user, localAuth };
   }
+
+  async findUser(
+    userId: string,
+  ): Promise<{ user: ModelTypes.User }> {
+    const user = await this.userModel.findOne(userId);
+    return { user };
+  }
 }
