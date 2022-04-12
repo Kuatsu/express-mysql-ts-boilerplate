@@ -1,14 +1,15 @@
-import express, { Request, Response } from 'express';
+import express from 'express';
 import AppConfig from './config';
 import db from './config/db';
+import UserController from './controllers/user';
 
 const app = express();
 
 db.connect(); // Test database connection
 
-app.get('/', (req: Request, res: Response) => {
-  res.send('Hello world!');
-});
+app.use(express.json());
+
+app.use('/user', UserController);
 
 app.listen(AppConfig.port, () => {
   console.log(`🚀 Server started at http://localhost:${AppConfig.port}`);

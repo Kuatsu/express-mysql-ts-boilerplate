@@ -1,12 +1,19 @@
 import { v4 as uuid } from 'uuid';
+import mysql from 'mysql2/promise';
 import DbTypes from '../types/db';
 import ModelTypes from '../types/models';
 
 export default class UserModel {
-  static async create(user: ModelTypes.BasicUser): Promise<ModelTypes.User> {
+  private db: mysql.Connection;
+
+  constructor(db: mysql.Connection) {
+    this.db = db;
+  }
+
+  async create(user: ModelTypes.BasicUser): Promise<ModelTypes.User> {
     const userId = uuid();
     const createdOn = new Date();
-    await db.execute(
+    await this.db.execute(
       'INSERT INTO users (id, provider_type, provider_id, first_name, created_on) VALUES (?, ?, ?, ?, ?)',
       [userId, user.providerType, user.providerId, user.firstName, createdOn],
     );
@@ -18,8 +25,8 @@ export default class UserModel {
     };
   }
 
-  static async findOne(userId: string): Promise<ModelTypes.User> {
-    const result = await db.execute<DbTypes.User[]>(
+  async findOne(userId: string): Promise<ModelTypes.User> {
+    const result = await this.db.execute<DbTypes.User[]>(
       'SELECT * FROM users WHERE id = ?',
       [userId],
     );
@@ -34,8 +41,8 @@ export default class UserModel {
     };
   }
 
-  static async findAll(): Promise<ModelTypes.User[]> {
-    const result = await db.execute<DbTypes.User[]>(
+  async findAll(): Promise<ModelTypes.User[]> {
+    const result = await this.db.execute<DbTypes.User[]>(
       'SELECT * FROM users',
     );
     const [rows] = result;
