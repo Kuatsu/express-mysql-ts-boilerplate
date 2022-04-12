@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  mysqldb:
+    image: mariadb
+    restart: unless-stopped
+    environment:
+      - MYSQL_ROOT_PASSWORD=$DATABASE_PASSWORD
+      - MYSQL_DATABASE=$DATABASE_DB_NAME
+    ports:
+      - $DATABASE_HOST_PORT:3306
+    volumes:
+      - db:/var/lib/mysql
+      - ./db.sql:/docker-entrypoint-initdb.d/db.sql
+  app:
+    depends_on:
+      - mysqldb
+    build: ./
+    restart: unless-stopped
+    env_file: ./.app.env
+    ports:
+      - $NODE_HOST_PORT:$NODE_DOCKER_PORT
+    environment:
+      - NODE_PORT=$NODE_DOCKER_PORT
+      - DATABASE_HOST=mysqldb
+      - DATABASE_USERNAME=root
+      - DATABASE_PASSWORD=$DATABASE_PASSWORD
+      - DATABASE_DB_NAME=$DATABASE_DB_NAME
+      - DATABASE_PORT=3306
+    volumes:
+      - ./:/usr/src/app
+      - /usr/src/app/node_modules/ # Remove node_modules from volume since shared node_modules might lead to issues with packages using native code such as bcrypt
+
+volumes:
+  db:

@@ -6,6 +6,7 @@ const db = await mysql.createConnection({
   user: AppConfig.database.username,
   password: AppConfig.database.password,
   database: AppConfig.database.dbName,
+  port: AppConfig.database.port,
 });
 
 export default db;
