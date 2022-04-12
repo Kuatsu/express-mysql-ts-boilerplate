@@ -1,4 +1,5 @@
 import express from 'express';
+import helmet from 'helmet';
 import AppConfig from './config';
 import db from './config/db';
 import UserController from './controllers/User';
@@ -9,6 +10,7 @@ const app = express();
 db.connect(); // Test database connection
 
 app.use(express.json());
+app.use(helmet());
 
 app.use('/user', UserController);
 
