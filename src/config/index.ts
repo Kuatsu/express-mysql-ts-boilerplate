@@ -8,6 +8,7 @@ const AppConfig = {
     password: process.env.DATABASE_PASSWORD,
     dbName: process.env.DATABASE_DB_NAME,
   },
+  bcryptRounds: parseInt(process.env.BCRYPT_ROUNDS || '0', 10),
 };
 
 export default AppConfig;

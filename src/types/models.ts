@@ -11,6 +11,16 @@ namespace ModelTypes {
     id: string,
     createdOn: Date,
   }
+
+  export interface BasicLocalAuth {
+    email: string,
+    password: string,
+  }
+
+  export interface LocalAuth extends BasicLocalAuth {
+    id: string,
+    createdOn: Date,
+  }
 }
 
 export default ModelTypes;
