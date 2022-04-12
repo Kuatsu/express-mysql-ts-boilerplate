@@ -9,7 +9,6 @@ import validateReq from '../middlewares/validateReq';
 const router = express.Router();
 const userService = new UserService(new UserModel(db), new LocalAuthModel(db));
 
-// TODO: Add JOI validation
 router.post('/', validateReq, async (
   req: express.Request<any, ApiTypes.Response.CreateLocalUser, ApiTypes.Request.CreateLocalUser, any>,
   res,
