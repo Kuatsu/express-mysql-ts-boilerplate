@@ -1,5 +1,4 @@
-import { uuid } from 'uuidv4';
-import db from '../config/db';
+import { v4 as uuid } from 'uuid';
 import DbTypes from '../types/db';
 import ModelTypes from '../types/models';
 
