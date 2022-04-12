@@ -1,6 +1,7 @@
 import 'dotenv/config';
 
 const AppConfig = {
+  nodeEnv: process.env.NODE_ENV || 'development',
   port: parseInt(process.env.NODE_PORT || '0', 10),
   database: {
     host: process.env.DATABASE_HOST,

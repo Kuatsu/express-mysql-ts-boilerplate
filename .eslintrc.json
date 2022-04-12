@@ -18,6 +18,7 @@
     "no-multi-str": "off",
     "no-continue": "off",
     "no-confusing-arrow": "off",
+    "max-classes-per-file": "off",
     "max-len": ["error", {
         "code": 120,
         "ignoreUrls": true,

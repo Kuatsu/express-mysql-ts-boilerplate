@@ -1,5 +1,7 @@
 import express from 'express';
 import Joi from 'joi';
+import { ErrorStatus } from '../types/global';
+import ApiError from '../utils/ApiError';
 
 const schemas: Record<string, Joi.ObjectSchema> = {
   'POST /user': Joi.object({
@@ -27,8 +29,7 @@ const validateReq = async (
   if (req.method === 'GET') toValidate = req.query;
   const { error } = schema.validate(toValidate);
   if (error) {
-    console.error('JOI Validation Error', error);
-    throw error; // TODO: Pass error to next
+    return next(new ApiError('validation_error', ErrorStatus.BadRequest, error));
   }
 
   return next();
