@@ -1,7 +1,7 @@
 import express from 'express';
 import AppConfig from './config';
 import db from './config/db';
-import UserController from './controllers/user';
+import UserController from './controllers/User';
 
 const app = express();
 

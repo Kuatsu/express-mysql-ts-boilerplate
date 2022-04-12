@@ -4,12 +4,13 @@ import UserModel from '../models/User';
 import UserService from '../services/User';
 import db from '../config/db';
 import ApiTypes from '../types/api';
+import validateReq from '../middlewares/validateReq';
 
 const router = express.Router();
 const userService = new UserService(new UserModel(db), new LocalAuthModel(db));
 
 // TODO: Add JOI validation
-router.post('/', async (
+router.post('/', validateReq, async (
   req: express.Request<any, ApiTypes.Response.CreateLocalUser, ApiTypes.Request.CreateLocalUser, any>,
   res,
   _next,
@@ -25,7 +26,7 @@ router.post('/', async (
   });
 });
 
-router.get('/:userId', async (
+router.get('/:userId', validateReq, async (
   req: express.Request<ApiTypes.Params.GetSingleUser, ApiTypes.Response.GetSingleUser, any, any>,
   res,
   _next,
