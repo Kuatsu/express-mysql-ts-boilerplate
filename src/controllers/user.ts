@@ -27,6 +27,7 @@ router.post('/', validateReq, async (
       createdOn: user.createdOn.toISOString(),
     });
   } catch (e: any) {
+    if (e.message === 'not_found') return next(new ApiError('not_found', ErrorStatus.NotFound, e));
     return next(new ApiError('server', ErrorStatus.Server, e));
   }
 });
@@ -46,6 +47,7 @@ router.get('/:userId', validateReq, async (
       createdOn: user.createdOn.toISOString(),
     });
   } catch (e: any) {
+    if (e.message === 'not_found') return next(new ApiError('not_found', ErrorStatus.NotFound, e));
     return next(new ApiError('server', ErrorStatus.Server, e));
   }
 });

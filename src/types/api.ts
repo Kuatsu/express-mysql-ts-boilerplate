@@ -1,4 +1,5 @@
 namespace ApiTypes {
+  export type ErrorCode = 'validation_error' | 'server' | 'not_found';
 
   export namespace Params {
     export interface GetSingleUser {

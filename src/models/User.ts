@@ -30,14 +30,16 @@ export default class UserModel {
       'SELECT * FROM users WHERE id = ?',
       [userId],
     );
-    const row = result[0][0];
+    const [rows] = result;
+    if (rows.length === 0) throw new Error('not_found');
+    const user = rows[0];
 
     return {
-      id: row.id,
-      providerType: row.provider_type,
-      providerId: row.provider_id,
-      firstName: row.first_name,
-      createdOn: new Date(row.created_on),
+      id: user.id,
+      providerType: user.provider_type,
+      providerId: user.provider_id,
+      firstName: user.first_name,
+      createdOn: new Date(user.created_on),
     };
   }
 
@@ -46,13 +48,14 @@ export default class UserModel {
       'SELECT * FROM users',
     );
     const [rows] = result;
+    if (rows.length === 0) throw new Error('not_found');
 
-    return rows.map((row) => ({
-      id: row.id,
-      providerType: row.provider_type,
-      providerId: row.provider_id,
-      firstName: row.first_name,
-      createdOn: new Date(row.created_on),
+    return rows.map((user) => ({
+      id: user.id,
+      providerType: user.provider_type,
+      providerId: user.provider_id,
+      firstName: user.first_name,
+      createdOn: new Date(user.created_on),
     }));
   }
 }
