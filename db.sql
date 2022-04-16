@@ -17,3 +17,12 @@ CREATE TABLE IF NOT EXISTS local_auth (
   created_on DATETIME NOT NULL DEFAULT NOW(),
   PRIMARY KEY (id)
 );
+
+CREATE TABLE IF NOT EXISTS jwt_tokens (
+  `id` char(36) NOT NULL DEFAULT '',
+  `user_id` char(36) NOT NULL DEFAULT '',
+  `token` text NOT NULL,
+  `revoked` tinyint(1) NOT NULL DEFAULT 0,
+  `created_on` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+);

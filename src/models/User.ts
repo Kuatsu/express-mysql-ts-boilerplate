@@ -2,6 +2,7 @@ import { v4 as uuid } from 'uuid';
 import mysql from 'mysql2/promise';
 import DbTypes from '../types/db';
 import ModelTypes from '../types/models';
+import { ProviderType } from '../types/global';
 
 export default class UserModel {
   private db: mysql.Connection;
@@ -29,6 +30,24 @@ export default class UserModel {
     const result = await this.db.execute<DbTypes.User[]>(
       'SELECT * FROM users WHERE id = ?',
       [userId],
+    );
+    const [rows] = result;
+    if (rows.length === 0) throw new Error('not_found');
+    const user = rows[0];
+
+    return {
+      id: user.id,
+      providerType: user.provider_type,
+      providerId: user.provider_id,
+      firstName: user.first_name,
+      createdOn: new Date(user.created_on),
+    };
+  }
+
+  async findOneByProvider(providerId: string, providerType: ProviderType): Promise<ModelTypes.User> {
+    const result = await this.db.execute<DbTypes.User[]>(
+      'SELECT * FROM users WHERE provider_id = ? AND provider_type = ?',
+      [providerId, providerType],
     );
     const [rows] = result;
     if (rows.length === 0) throw new Error('not_found');

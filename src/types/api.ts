@@ -1,5 +1,7 @@
+/* eslint-disable max-len */
+
 namespace ApiTypes {
-  export type ErrorCode = 'validation_error' | 'server' | 'not_found';
+  export type ErrorCode = 'validation_error' | 'server' | 'not_found' | 'wrong_email_or_password' | 'invalid_jwt' | 'no_access';
 
   export namespace Params {
     export interface GetSingleUser {
@@ -11,6 +13,12 @@ namespace ApiTypes {
       email: string;
       password: string;
       firstName: string;
+    }
+
+    export interface AuthLocal {
+      email: string;
+      password: string;
+      oldJwtToken?: string;
     }
   }
 
@@ -26,6 +34,11 @@ namespace ApiTypes {
       id: string;
       firstName: string;
       createdOn: string;
+    }
+
+    export interface AuthLocal {
+      userId: string;
+      jwtToken: string;
     }
   }
 }

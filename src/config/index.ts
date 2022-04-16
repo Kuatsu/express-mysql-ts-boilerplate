@@ -11,6 +11,7 @@ const AppConfig = {
     port: parseInt(process.env.DATABASE_PORT || '0', 10),
   },
   bcryptRounds: parseInt(process.env.BCRYPT_ROUNDS || '0', 10),
+  jwtSecret: process.env.JWT_TOKEN || '',
 };
 
 export default AppConfig;

@@ -21,6 +21,17 @@ namespace ModelTypes {
     id: string,
     createdOn: Date,
   }
+
+  export interface BasicJwtToken {
+    token: string,
+    userId: string,
+  }
+
+  export interface JwtToken extends BasicJwtToken {
+    id: string,
+    revoked: boolean,
+    createdOn: Date,
+  }
 }
 
 export default ModelTypes;
